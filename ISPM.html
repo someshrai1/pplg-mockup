@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saviynt Insights & Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font, Icons, etc. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">Saviynt</div>
+            <nav>
+                <ul>
+                    <li><i class="fas fa-home"></i></li>
+                    <li><i class="fas fa-chart-bar"></i></li>
+                    <li><i class="fas fa-users"></i></li>
+                    <li><i class="fas fa-cogs"></i></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header>
+                <div class="topbar">
+                    <input type="text" class="search" placeholder="Start a conversation with Savi">
+                    <div class="profile"><i class="fas fa-user-circle"></i> Kyle McGill</div>
+                </div>
+            </header>
+            <section class="analytics-section">
+                <div class="analytics-header">
+                    <h2>Insights & Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="analytic-card">2,639<br><span>Resources</span></div>
+                        <div class="analytic-card">48,035<br><span>Identities</span></div>
+                        <div class="analytic-card">989<br><span>Roles</span></div>
+                        <div class="analytic-card">12,281<br><span>Accounts</span></div>
+                        <div class="analytic-card">4,310<br><span>Entitlements</span></div>
+                    </div>
+                </div>
+                <div class="recommendations">
+                    <h4>Recommendations</h4>
+                    <ul>
+                        <li>11 Accounts with excessive permissions detected <button>Review</button></li>
+                        <li>7 unused AWS access keys should be reviewed <button>Review</button></li>
+                        <li>3 risk elevations for privileged users <button>Analyze</button></li>
+                        <li>2 interactive service accounts detected <button>Analyze</button></li>
+                    </ul>
+                </div>
+                <div class="identity-insights">
+                    <div class="insight-card">
+                        <span>Duplicate Identities</span>
+                        <h3>20 <span>+22%</span></h3>
+                        <div class="chart"></div>
+                    </div>
+                    <div class="insight-card">
+                        <span>Potential Orphan Accounts</span>
+                        <h3>24 <span>+15%</span></h3>
+                        <div class="chart"></div>
+                    </div>
+                    <div class="insight-card">
+                        <span>Potential Entitlement Owners</span>
+                        <h3>17 <span>-6%</span></h3>
+                        <div class="chart"></div>
+                    </div>
+                    <div class="insight-card">
+                        <span>Shared Service Accounts</span>
+                        <h3>12 <span>+19%</span></h3>
+                        <div class="chart"></div>
+                    </div>
+                </div>
+                <div class="risk-detection">
+                    <h4>Risk Detection</h4>
+                    <div class="risk-chart"></div>
+                    <div class="risk-summary">
+                        <span>Applications: 1,250</span>
+                        <span>Workloads: 937</span>
+                        <span>Identities: 61</span>
+                    </div>
+                </div>
+            </section>
+            <!-- Risk Insights Section (lower half) -->
+            <section class="risk-insights-section">
+                <div class="tabs">
+                    <button class="tab active">Access</button>
+                    <button class="tab">Certifications</button>
+                    <button class="tab">Request</button>
+                    <button class="tab">Onboarding</button>
+                </div>
+                <div class="risk-insights-grid">
+                    <div class="risk-card">
+                        <h4>Unused Access <span>+6%</span></h4>
+                        <div class="circle">100<br><span>accounts</span></div>
+                        <ul class="small-list">
+                            <li>60 days + 55% (5 accounts)</li>
+                            <li>90 days + 20% (20 accounts)</li>
+                            <li>120 days + 20% (20 accounts)</li>
+                            <li>Over 6 months 5%</li>
+                        </ul>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Guest Access for Critical Assets</h4>
+                        <span>31 <span>+15%</span></span>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Unused Access</h4>
+                        <span>25 <span>+9%</span></span>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Outlier Access</h4>
+                        <div class="donut">1,021<br><span>users</span></div>
+                        <div>Peer Match 425, 270, 126 users</div>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Service Accounts for Critical Assets</h4>
+                        <span>29 <span>+22%</span></span>
+                        <div class="bar-chart"></div>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Unused Access Per System</h4>
+                        <ul class="small-list">
+                            <li>AWS 11 users</li>
+                            <li>Azure 24 users</li>
+                            <li>SAP 400 users</li>
+                        </ul>
+                    </div>
+                    <div class="risk-card">
+                        <h4>Dormant Users of Access to Vulnerable Assets</h4>
+                        <div>60+ Days 212 users</div>
+                        <div>6 months 35 users</div>
+                        <div>1 year 368 users</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
