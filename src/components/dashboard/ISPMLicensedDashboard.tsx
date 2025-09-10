@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Shield, Activity, Settings, Bell, User, Menu } from "lucide-react";
-import { ISPMTrialSection } from "./ISPMTrialSection";
-import { ISPMLivePage } from "./ISPMLivePage";
+import { ISPMLivePageLicensed } from "./ISPMLivePageLicensed";
 import { Link } from "react-router-dom";
 
-export function ISPMDashboardLayout() {
+interface ISPMLicensedDashboardProps {
+  packageName: string;
+}
+
+export function ISPMLicensedDashboard({ packageName }: ISPMLicensedDashboardProps) {
   const [activeSection, setActiveSection] = useState("live");
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
 
@@ -21,8 +24,8 @@ export function ISPMDashboardLayout() {
             </Link>
           </div>
           <div className="ml-auto flex items-center gap-4">
-            <Badge variant="outline" className="bg-warning/10 text-warning border-warning/20">
-              ISPM Trial - 3 Days Left
+            <Badge variant="outline" className="bg-success/10 text-success border-success/20">
+              {packageName}
             </Badge>
             <Button variant="ghost" size="sm">
               <Bell className="h-4 w-4" />
@@ -62,20 +65,19 @@ export function ISPMDashboardLayout() {
               {!isMenuCollapsed && "Live Dashboard"}
             </Button>
             <Button
-              variant={activeSection === "trial" ? "secondary" : "ghost"}
+              variant={activeSection === "analytics" ? "secondary" : "ghost"}
               className={`w-full ${isMenuCollapsed ? 'justify-center' : 'justify-start'}`}
-              onClick={() => setActiveSection("trial")}
+              onClick={() => setActiveSection("analytics")}
             >
               <Shield className={`h-4 w-4 ${!isMenuCollapsed ? 'mr-2' : ''}`} />
-              {!isMenuCollapsed && "Trial Overview"}
+              {!isMenuCollapsed && "Analytics"}
             </Button>
           </nav>
         </aside>
 
         {/* Content */}
         <main className="flex-1">
-          {activeSection === "trial" && <ISPMTrialSection />}
-          {activeSection === "live" && <ISPMLivePage onTrialClick={() => setActiveSection("trial")} />}
+          <ISPMLivePageLicensed />
         </main>
       </div>
     </div>

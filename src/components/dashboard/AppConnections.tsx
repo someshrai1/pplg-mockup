@@ -47,7 +47,7 @@ export function AppConnections() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Monitor className="h-5 w-5" />
-          Application Connections
+          Apps Connected
         </CardTitle>
         <CardDescription>
           Connected applications and their user provisioning status
@@ -58,7 +58,6 @@ export function AppConnections() {
           {apps.map((app) => (
             <div key={app.name} className="flex items-center justify-between p-3 border rounded-lg">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{app.icon}</span>
                 <div>
                   <div className="font-medium">{app.name}</div>
                   <div className="text-sm text-muted-foreground">{app.users} users provisioned</div>

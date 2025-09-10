@@ -8,8 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { FileText, CreditCard, Download, Calculator, CheckCircle, Building } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export function IGAQuoteForm() {
   const [formData, setFormData] = useState({
@@ -28,7 +30,16 @@ export function IGAQuoteForm() {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [quoteData, setQuoteData] = useState<{
+    packageName: string;
+    basePrice: number;
+    term: string;
+    totalPrice: number;
+    companyName: string;
+  } | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const licensePackages = [
     {
@@ -73,9 +84,9 @@ export function IGAQuoteForm() {
   ];
 
   const subscriptionTerms = [
-    { value: "12", label: "12 months (5% discount)" },
-    { value: "24", label: "24 months (10% discount)" },
-    { value: "36", label: "36 months (15% discount)" }
+    { value: "12", label: "12 months" },
+    { value: "24", label: "24 months" },
+    { value: "36", label: "36 months" }
   ];
 
   const handleInputChange = (field: string, value: string) => {
@@ -104,12 +115,60 @@ export function IGAQuoteForm() {
     setIsSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 2500));
     
-    toast({
-      title: "Quote requested successfully!",
-      description: "Your IGA quote request has been submitted. You'll receive a detailed proposal within 24 hours.",
+    // Generate quote data
+    const selectedPackage = licensePackages.find(pkg => pkg.id === formData.licensePackage);
+    const basePrice = selectedPackage?.id === 'pro' ? 500000 : selectedPackage?.id === 'premium' ? 1000000 : 24000;
+    const termMultiplier = parseInt(formData.subscriptionTerm) / 12;
+    const totalPrice = basePrice * termMultiplier;
+    
+    setQuoteData({
+      packageName: selectedPackage?.name || 'Additional App Bundle',
+      basePrice,
+      term: formData.subscriptionTerm,
+      totalPrice,
+      companyName: formData.companyName
     });
     
     setIsSubmitting(false);
+    setShowQuoteModal(true);
+  };
+
+  const handleDownloadQuote = () => {
+    if (!quoteData) return;
+    
+    const quoteContent = `
+SAVIYNT QUOTE
+
+Company: ${quoteData.companyName}
+Package: ${quoteData.packageName}
+Term: ${quoteData.term} months
+Total Price: $${quoteData.totalPrice.toLocaleString()}
+
+Quote valid for 30 days.
+Final pricing subject to contract negotiation.
+    `;
+    
+    const blob = new Blob([quoteContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `saviynt-quote-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Quote downloaded",
+      description: "Your quote has been downloaded successfully."
+    });
+  };
+
+  const handleAcceptQuote = () => {
+    if (!quoteData) return;
+    
+    setShowQuoteModal(false);
+    navigate(`/po-upload?package=${encodeURIComponent(quoteData.packageName)}`);
   };
 
   return (
@@ -362,7 +421,7 @@ export function IGAQuoteForm() {
             <Checkbox 
               id="terms"
               checked={formData.agreedToTerms}
-              onCheckedChange={(checked) => handleInputChange('agreedToTerms', checked.toString())}
+              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, agreedToTerms: checked === true }))}
             />
             <label htmlFor="terms" className="text-sm cursor-pointer">
               I agree to the terms and conditions and authorize Saviynt to contact me regarding this quote request. 
@@ -391,6 +450,51 @@ export function IGAQuoteForm() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Quote Modal */}
+      <Dialog open={showQuoteModal} onOpenChange={setShowQuoteModal}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Your Quote</DialogTitle>
+            <DialogDescription>
+              Review your quote details below
+            </DialogDescription>
+          </DialogHeader>
+          {quoteData && (
+            <div className="space-y-4">
+              <div className="bg-muted/50 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2">{quoteData.packageName}</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Base Price (Annual):</span>
+                    <span>${quoteData.basePrice.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Term:</span>
+                    <span>{quoteData.term} months</span>
+                  </div>
+                  <div className="flex justify-between font-semibold text-lg border-t pt-2">
+                    <span>Total Price:</span>
+                    <span>${quoteData.totalPrice.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Quote valid for 30 days. Final pricing subject to contract negotiation.
+              </div>
+            </div>
+          )}
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={handleDownloadQuote}>
+              <Download className="h-4 w-4 mr-2" />
+              Download Quote
+            </Button>
+            <Button onClick={handleAcceptQuote}>
+              Accept Quote
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

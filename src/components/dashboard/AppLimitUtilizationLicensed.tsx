@@ -1,11 +1,46 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Monitor, Users } from "lucide-react";
-import { UsageQuoteForm } from "./UsageQuoteForm";
 
-export function AppLimitUtilization() {
+interface AppLimitUtilizationLicensedProps {
+  packageName: string;
+}
+
+export function AppLimitUtilizationLicensed({ packageName }: AppLimitUtilizationLicensedProps) {
+  // Determine app limit and license display based on package
+  console.log('Package name received:', packageName);
+  
+  const getAppConfig = () => {
+    if (packageName.includes("Additional App Bundle") || packageName.includes("App Bundle")) {
+      return {
+        limit: 40,
+        displayLimit: "40",
+        licenseName: "Savi Security Essentials",
+        isUnlimited: false
+      };
+    }
+    if (packageName.includes("Pro") || packageName.includes("Premium")) {
+      return {
+        limit: Infinity,
+        displayLimit: "-",
+        licenseName: packageName,
+        isUnlimited: true
+      };
+    }
+    // Default fallback - should not happen
+    return {
+      limit: 40,
+      displayLimit: "40",
+      licenseName: "Savi Security Essentials",
+      isUnlimited: false
+    };
+  };
+
+  const appConfig = getAppConfig();
+  const connectedApps = 18;
+  const utilization = appConfig.isUnlimited ? 0 : (connectedApps / appConfig.limit) * 100;
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
@@ -14,29 +49,14 @@ export function AppLimitUtilization() {
           <Monitor className="h-4 w-4 text-primary" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">18 / 20</div>
-          <Progress value={90} className="mt-2" />
+          <div className="text-2xl font-bold">{connectedApps} / {appConfig.displayLimit}</div>
+          {!appConfig.isUnlimited && <Progress value={utilization} className="mt-2" />}
           <p className="text-xs text-muted-foreground mt-2">
-            90% of app limit used
+            {appConfig.isUnlimited ? "Unlimited apps" : `${utilization.toFixed(1)}% of app limit used`}
           </p>
-          <div className="flex items-center justify-between mt-2">
-            <Badge variant="outline" className="bg-warning/10 text-warning border-warning/20">
-              Near Limit
-            </Badge>
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer">
-                  Buy Now!
-                </button>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Request a Quote</DialogTitle>
-                </DialogHeader>
-                <UsageQuoteForm />
-              </DialogContent>
-            </Dialog>
-          </div>
+          <Badge variant="outline" className="mt-2 bg-success/10 text-success border-success/20 text-xs">
+            Within Limits
+          </Badge>
         </CardContent>
       </Card>
 
@@ -51,7 +71,7 @@ export function AppLimitUtilization() {
             vs previous month
           </p>
           <div className="text-sm mt-2">
-            <span className="text-success">↗ 18</span> connected apps
+            <span className="text-success">↗ {connectedApps}</span> connected apps
           </div>
         </CardContent>
       </Card>

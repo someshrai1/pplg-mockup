@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, Users, Monitor, Settings, Bell, User, Menu } from "lucide-react";
 import { ConsumptionOverview } from "./ConsumptionOverview";
-import { AppLimitUtilization } from "./AppLimitUtilization";
+import { AppLimitUtilizationLicensed } from "./AppLimitUtilizationLicensed";
 import { UserMetrics } from "./UserMetrics";
 import { AppConnections } from "./AppConnections";
 import { GovernanceHighlights } from "./GovernanceHighlights";
 import { Link } from "react-router-dom";
 
-export function UsageDashboardLayout() {
+interface UsageLicensedDashboardProps {
+  packageName: string;
+}
+
+export function UsageLicensedDashboard({ packageName }: UsageLicensedDashboardProps) {
   const [usageSubTab, setUsageSubTab] = useState("overview");
   const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
+  
+  const getHeaderBadgeText = () => {
+    if (packageName.includes("Additional App Bundle") || packageName.includes("App Bundle")) {
+      return "Savi Security Essentials";
+    }
+    return packageName;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,7 +36,7 @@ export function UsageDashboardLayout() {
           </div>
           <div className="ml-auto flex items-center gap-4">
             <Badge variant="outline" className="bg-success/10 text-success border-success/20">
-              Savi Security Essentials
+              {getHeaderBadgeText()}
             </Badge>
             <Button variant="ghost" size="sm">
               <Bell className="h-4 w-4" />
@@ -89,7 +99,7 @@ export function UsageDashboardLayout() {
           <div className="mb-6">
             <h1 className="text-3xl font-bold">Usage Dashboard</h1>
             <p className="text-muted-foreground mt-2">
-              Monitor consumption across users and applications
+              Monitor consumption across users and applications with your licensed package
             </p>
           </div>
 
@@ -101,7 +111,7 @@ export function UsageDashboardLayout() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-4">App Limit Consumption</h3>
-                <AppLimitUtilization />
+                <AppLimitUtilizationLicensed packageName={packageName} />
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-4">Governance Highlights</h3>
@@ -111,8 +121,23 @@ export function UsageDashboardLayout() {
           )}
 
           {usageSubTab === "users" && (
-            <div className="space-y-6">
-              <UserMetrics detailed={true} />
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-semibold mb-4">User Limit Consumption</h3>
+                <ConsumptionOverview />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">App Limit Consumption</h3>
+                <AppLimitUtilizationLicensed packageName={packageName} />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Governance Highlights</h3>
+                <GovernanceHighlights />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">User Details</h3>
+                <UserMetrics detailed={true} />
+              </div>
             </div>
           )}
 
@@ -120,7 +145,7 @@ export function UsageDashboardLayout() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-semibold mb-4">App Limit Consumption</h3>
-                <AppLimitUtilization />
+                <AppLimitUtilizationLicensed packageName={packageName} />
               </div>
               <div>
                 <AppConnections />

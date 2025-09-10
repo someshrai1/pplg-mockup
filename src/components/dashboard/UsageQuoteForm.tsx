@@ -9,20 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { FileText, CreditCard, Download, Calculator, CheckCircle, Building, Mail, Phone } from "lucide-react";
+import { FileText, CreditCard, Download, CheckCircle, Building } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
-interface TrialEndExperience3Props {
-  trialData: {
-    eventsAnalyzed: number;
-    identitiesScanned: number;
-    aiInsights: number;
-    postureScore: number;
-  };
-}
-
-export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
+export function UsageQuoteForm() {
   const [formData, setFormData] = useState({
     companyName: "Acme Corporation",
     contactEmail: "john.smith@acmecorp.com",
@@ -52,27 +43,42 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
 
   const licensePackages = [
     {
-      id: "essential",
-      name: "ISPM Essential",
-      description: "Essential identity security posture monitoring",
-      features: ["Up to 500 identities", "Basic AI insights", "Standard reporting"],
-      price: "$8,500 /month",
-      recommended: false
-    },
-    {
       id: "pro",
-      name: "ISPM Pro",
-      description: "Advanced posture management and analytics",
-      features: ["Everything in Essential plus:", "Up to 2,000 identities", "Advanced AI analytics", "Custom dashboards", "API access"],
-      price: "$18,000 /month",
+      name: "Savi Identity Security Pro",
+      description: "All Essentials features plus advanced security capabilities",
+      features: [
+        "All Essentials features plus:",
+        "**Unlimited Onboarded Applications**",
+        "Coarse grained SoD – integrated with Request",
+        "ISPM for IGA",
+        "Fine grained access Visibility",
+        "NHI Discovery and Visibility",
+        "AI Agent Discovery and Visibility",
+        "MCP Discovery and Visibility",
+        "External Pro (no identity verification)",
+        "MCP Interface connected to Saviynt",
+        "JITA for 0.25% of Users",
+        "Integration w CMDB",
+        "AI Credits (fair usage)"
+      ],
+      price: "$500,000 /year",
       recommended: true
     },
     {
       id: "premium",
-      name: "ISPM Premium",
-      description: "Complete enterprise identity security platform",
-      features: ["Everything in Pro plus:", "Unlimited identities", "Full AI suite", "24/7 support"],
-      price: "$25,000 /month",
+      name: "Savi Identity Security Premium",
+      description: "All Pro features plus enterprise integrations and advanced security",
+      features: [
+        "All Pro features plus:",
+        "ISPM Premium (Other data source integration)",
+        "Integration with NH and Agentic Authorization engines",
+        "JITA Premium 1% of the users",
+        "Integration with Identity Verification for Privileged and External users",
+        "Integration with Security Partners (CNAPP, DSPM, EDR, SIEM, PAM)",
+        "Fine grained access Visibility (ISPM for AAG)",
+        "AI Credits (fair usage)"
+      ],
+      price: "$1,000,000 /year",
       recommended: false
     }
   ];
@@ -88,7 +94,6 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
   };
 
   const handleSubmitQuote = async () => {
-    // Basic validation
     if (!formData.companyName || !formData.contactEmail || !formData.licensePackage || !formData.subscriptionTerm) {
       toast({
         title: "Missing information",
@@ -112,13 +117,13 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
     
     // Generate quote data
     const selectedPackage = licensePackages.find(pkg => pkg.id === formData.licensePackage);
-    const basePrice = selectedPackage?.id === 'essential' ? 102000 : 
-                     selectedPackage?.id === 'pro' ? 216000 : 300000;
+    const basePrice = selectedPackage?.id === 'pro' ? 500000 : 
+                     selectedPackage?.id === 'premium' ? 1000000 : 24000;
     const termMultiplier = parseInt(formData.subscriptionTerm) / 12;
     const totalPrice = basePrice * termMultiplier;
     
     setQuoteData({
-      packageName: selectedPackage?.name || 'ISPM Package',
+      packageName: selectedPackage?.name || (formData.licensePackage === 'app-bundle' ? 'Additional App Bundle' : 'Usage Package'),
       basePrice,
       term: formData.subscriptionTerm,
       totalPrice,
@@ -129,20 +134,11 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
     setShowQuoteModal(true);
   };
 
-  // Calculate recommended package based on trial usage
-  const getRecommendedPackage = () => {
-    if (trialData.identitiesScanned > 1500) return "premium";
-    if (trialData.identitiesScanned > 500) return "pro";
-    return "essential";
-  };
-
-  const recommendedPackage = getRecommendedPackage();
-
   const handleDownloadQuote = () => {
     if (!quoteData) return;
     
     const quoteContent = `
-SAVIYNT QUOTE - ISPM
+SAVIYNT QUOTE - USAGE
 
 Company: ${quoteData.companyName}
 Package: ${quoteData.packageName}
@@ -157,7 +153,7 @@ Final pricing subject to contract negotiation.
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `saviynt-ispm-quote-${Date.now()}.txt`;
+    a.download = `saviynt-usage-quote-${Date.now()}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -165,7 +161,7 @@ Final pricing subject to contract negotiation.
     
     toast({
       title: "Quote downloaded",
-      description: "Your ISPM quote has been downloaded successfully."
+      description: "Your usage quote has been downloaded successfully."
     });
   };
 
@@ -173,47 +169,94 @@ Final pricing subject to contract negotiation.
     if (!quoteData) return;
     
     setShowQuoteModal(false);
-    navigate(`/po-upload?package=${encodeURIComponent(quoteData.packageName)}`);
+    navigate(`/usage-po-upload?package=${encodeURIComponent(quoteData.packageName)}`);
   };
 
   return (
     <div className="space-y-6">
-      {/* License Package Selection */}
+      {/* App Bundle Add-on */}
       <Card>
         <CardHeader>
-          <CardTitle>Select License Package</CardTitle>
+          <CardTitle>App Bundle Add-on</CardTitle>
           <CardDescription>
-            Choose the ISPM package that best fits your needs
+            Extend your application capacity with additional app bundles
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div 
+            className={`border rounded-lg p-4 cursor-pointer transition-all ${
+              formData.licensePackage === 'app-bundle'
+                ? 'border-primary bg-primary/5'
+                : 'bg-blue-50/50 hover:border-primary/50'
+            }`}
+            onClick={() => handleInputChange('licensePackage', 'app-bundle')}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium text-base mb-1">Additional App Bundle</div>
+                <div className="text-sm text-muted-foreground">Add 20 more applications to your package</div>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-primary">$24,000 /year</div>
+                <div className="text-sm text-muted-foreground">per bundle</div>
+              </div>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <CheckCircle className="h-3 w-3 text-success" />
+              <span>20 additional applications</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* OR Divider */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">OR</span>
+        </div>
+      </div>
+
+      {/* License Package Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Select Usage Package</CardTitle>
+          <CardDescription>
+            Choose the usage package that best fits your needs
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
             {licensePackages.map((pkg) => (
               <div 
                 key={pkg.id}
-                className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                className={`relative border rounded-lg p-4 cursor-pointer transition-all flex flex-col h-full ${
                   formData.licensePackage === pkg.id
                     ? 'border-primary bg-primary/5'
                     : 'hover:border-primary/50'
-                } ${pkg.id === recommendedPackage ? 'ring-2 ring-success/20' : ''}`}
+                } ${pkg.recommended ? 'ring-2 ring-success/20' : ''}`}
                 onClick={() => handleInputChange('licensePackage', pkg.id)}
               >
-                {pkg.id === recommendedPackage && (
+                {pkg.recommended && (
                   <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-success text-success-foreground">
                     Recommended
                   </Badge>
                 )}
-                <div className="space-y-3">
-                  <div>
-                    <div className="font-medium">{pkg.name}</div>
-                    <div className="text-sm text-muted-foreground">{pkg.description}</div>
+                <div className="flex flex-col h-full">
+                  <div className="mb-3">
+                    <div className="font-medium text-base mb-2">{pkg.name}</div>
+                    <div className="text-sm text-muted-foreground mb-3">{pkg.description}</div>
+                    <div className="text-lg font-bold text-primary">{pkg.price}</div>
                   </div>
-                  <div className="text-lg font-bold text-primary">{pkg.price}</div>
-                  <div className="space-y-1">
+                  <div className="flex-1 space-y-2">
                     {pkg.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-3 w-3 text-success" />
-                        <span>{feature}</span>
+                      <div key={index} className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="h-3 w-3 text-success mt-0.5 flex-shrink-0" />
+                        <span className="leading-relaxed" dangerouslySetInnerHTML={{
+                          __html: feature.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        }} />
                       </div>
                     ))}
                   </div>
@@ -233,11 +276,6 @@ Final pricing subject to contract negotiation.
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <p className="text-sm text-blue-800">
-              <strong>We have your details on file.</strong> Please confirm if we should continue to use these details for your quote request.
-            </p>
-          </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <Label htmlFor="companyName">Company Name *</Label>
@@ -258,82 +296,6 @@ Final pricing subject to contract negotiation.
                 placeholder="contact@company.com"
               />
             </div>
-          </div>
-          <div>
-            <Label htmlFor="contactPhone">Contact Phone</Label>
-            <Input
-              id="contactPhone"
-              type="tel"
-              value={formData.contactPhone}
-              onChange={(e) => handleInputChange('contactPhone', e.target.value)}
-              placeholder="+1 (555) 000-0000"
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Billing Address */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CreditCard className="h-5 w-5" />
-            Billing Information
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <Label htmlFor="billingAddress">Address</Label>
-            <Input
-              id="billingAddress"
-              value={formData.billingAddress}
-              onChange={(e) => handleInputChange('billingAddress', e.target.value)}
-              placeholder="Street address"
-            />
-          </div>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <Label htmlFor="city">City</Label>
-              <Input
-                id="city"
-                value={formData.city}
-                onChange={(e) => handleInputChange('city', e.target.value)}
-                placeholder="City"
-              />
-            </div>
-            <div>
-              <Label htmlFor="state">State</Label>
-              <Input
-                id="state"
-                value={formData.state}
-                onChange={(e) => handleInputChange('state', e.target.value)}
-                placeholder="State"
-              />
-            </div>
-            <div>
-              <Label htmlFor="zipCode">ZIP Code</Label>
-              <Input
-                id="zipCode"
-                value={formData.zipCode}
-                onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                placeholder="ZIP"
-              />
-            </div>
-          </div>
-          <div>
-            <Label htmlFor="country">Country</Label>
-            <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select country" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="us">United States</SelectItem>
-                <SelectItem value="ca">Canada</SelectItem>
-                <SelectItem value="uk">United Kingdom</SelectItem>
-                <SelectItem value="au">Australia</SelectItem>
-                <SelectItem value="de">Germany</SelectItem>
-                <SelectItem value="fr">France</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </CardContent>
       </Card>
@@ -359,16 +321,6 @@ Final pricing subject to contract negotiation.
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <Label htmlFor="customRequirements">Custom Requirements</Label>
-            <Textarea
-              id="customRequirements"
-              value={formData.customRequirements}
-              onChange={(e) => handleInputChange('customRequirements', e.target.value)}
-              placeholder="Any specific requirements, integrations, or custom features needed?"
-              className="min-h-[100px]"
-            />
-          </div>
         </CardContent>
       </Card>
 
@@ -382,8 +334,7 @@ Final pricing subject to contract negotiation.
               onCheckedChange={(checked) => setFormData(prev => ({ ...prev, agreedToTerms: checked === true }))}
             />
             <label htmlFor="terms" className="text-sm cursor-pointer">
-              I agree to the terms and conditions and authorize Saviynt to contact me regarding this quote request. 
-              I understand that pricing is subject to final contract negotiation.
+              I agree to the terms and conditions for usage licensing.
             </label>
           </div>
           
@@ -396,21 +347,15 @@ Final pricing subject to contract negotiation.
                 You'll receive a detailed proposal within 24 hours
               </div>
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline">
-                <Download className="h-4 w-4 mr-2" />
-                Download Summary
-              </Button>
-              <Button 
-                onClick={handleSubmitQuote}
-                disabled={isSubmitting}
-                size="lg"
-                className="min-w-[150px]"
-              >
-                <FileText className="h-4 w-4 mr-2" />
-                {isSubmitting ? "Submitting..." : "Request Quote"}
-              </Button>
-            </div>
+            <Button 
+              onClick={handleSubmitQuote}
+              disabled={isSubmitting}
+              size="lg"
+              className="min-w-[150px]"
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              {isSubmitting ? "Submitting..." : "Request Quote"}
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -419,9 +364,9 @@ Final pricing subject to contract negotiation.
       <Dialog open={showQuoteModal} onOpenChange={setShowQuoteModal}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Your ISPM Quote</DialogTitle>
+            <DialogTitle>Your Usage Quote</DialogTitle>
             <DialogDescription>
-              Review your ISPM quote details below
+              Review your usage quote details below
             </DialogDescription>
           </DialogHeader>
           {quoteData && (
