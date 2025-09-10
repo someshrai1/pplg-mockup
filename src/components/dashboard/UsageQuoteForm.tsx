@@ -85,6 +85,7 @@ export function UsageQuoteForm() {
 
   const subscriptionTerms = [
     { value: "12", label: "12 months" },
+    { value: "17", label: "Co-term with Agreement - 17 Months" },
     { value: "24", label: "24 months" },
     { value: "36", label: "36 months" }
   ];
