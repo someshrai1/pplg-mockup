@@ -9,7 +9,19 @@ export function AppConnections() {
     { name: "AWS Console", status: "warning", users: 67, icon: "☁️" },
     { name: "GitHub", status: "connected", users: 156, icon: "🐙" },
     { name: "Slack", status: "error", users: 0, icon: "💬" },
-    { name: "Jira", status: "connected", users: 89, icon: "🎯" }
+    { name: "Jira", status: "connected", users: 89, icon: "🎯" },
+    { name: "ServiceNow", status: "connected", users: 145, icon: "⚙️" },
+    { name: "Workday", status: "connected", users: 298, icon: "👥" },
+    { name: "Okta", status: "connected", users: 567, icon: "🔐" },
+    { name: "Tableau", status: "connected", users: 78, icon: "📊" },
+    { name: "Zoom", status: "connected", users: 423, icon: "📹" },
+    { name: "Confluence", status: "connected", users: 134, icon: "📝" },
+    { name: "DocuSign", status: "connected", users: 89, icon: "✍️" },
+    { name: "Box", status: "connected", users: 167, icon: "📦" },
+    { name: "Dropbox", status: "connected", users: 203, icon: "☁️" },
+    { name: "Adobe Creative", status: "connected", users: 45, icon: "🎨" },
+    { name: "HubSpot", status: "connected", users: 112, icon: "📈" },
+    { name: "Zendesk", status: "connected", users: 89, icon: "🎟️" }
   ];
 
   const getStatusIcon = (status: string) => {

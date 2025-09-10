@@ -32,27 +32,42 @@ export function IGAQuoteForm() {
 
   const licensePackages = [
     {
-      id: "essential",
-      name: "IGA Essential",
-      description: "Core identity governance and administration",
-      features: ["Up to 1,000 identities", "Basic access reviews", "Standard reporting", "Email support"],
-      price: "$5,500/month",
-      recommended: false
-    },
-    {
       id: "pro",
-      name: "IGA Pro",
-      description: "Advanced governance with automation",
-      features: ["Up to 5,000 identities", "Automated provisioning", "Advanced analytics", "API access", "Phone support"],
-      price: "$12,000/month",
+      name: "Savi Identity Security Pro",
+      description: "All Essentials features plus advanced security capabilities",
+      features: [
+        "All Essentials features plus:",
+        "**Unlimited Onboarded Applications**",
+        "Coarse grained SoD – integrated with Request",
+        "ISPM for IGA",
+        "Fine grained access Visibility",
+        "NHI Discovery and Visibility",
+        "AI Agent Discovery and Visibility",
+        "MCP Discovery and Visibility",
+        "External Pro (no identity verification)",
+        "MCP Interface connected to Saviynt",
+        "JITA for 0.25% of Users",
+        "Integration w CMDB",
+        "AI Credits (fair usage)"
+      ],
+      price: "$500,000/year",
       recommended: true
     },
     {
       id: "premium",
-      name: "IGA Premium",
-      description: "Enterprise-grade governance platform",
-      features: ["Unlimited identities", "AI-powered insights", "Custom workflows", "White-label options", "24/7 support"],
-      price: "Custom pricing",
+      name: "Savi Identity Security Premium",
+      description: "All Pro features plus enterprise integrations and advanced security",
+      features: [
+        "All Pro features plus:",
+        "ISPM Premium (Other data source integration)",
+        "Integration with NH and Agentic Authorization engines",
+        "JITA Premium 1% of the users",
+        "Integration with Identity Verification for Privileged and External users",
+        "Integration with Security Partners (CNAPP, DSPM, EDR, SIEM, PAM)",
+        "Fine grained access Visibility (ISPM for AAG)",
+        "AI Credits (fair usage)"
+      ],
+      price: "$1,000,000/year",
       recommended: false
     }
   ];
@@ -99,20 +114,65 @@ export function IGAQuoteForm() {
 
   return (
     <div className="space-y-6">
-      {/* License Package Selection */}
+      {/* App Bundle Add-on */}
       <Card>
         <CardHeader>
-          <CardTitle>Select IGA License Package</CardTitle>
+          <CardTitle>App Bundle Add-on</CardTitle>
           <CardDescription>
-            Choose the Identity Governance & Administration package that best fits your needs
+            Extend your application capacity with additional app bundles
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div 
+            className={`border rounded-lg p-4 cursor-pointer transition-all ${
+              formData.licensePackage === 'app-bundle'
+                ? 'border-primary bg-primary/5'
+                : 'bg-blue-50/50 hover:border-primary/50'
+            }`}
+            onClick={() => handleInputChange('licensePackage', 'app-bundle')}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium text-base mb-1">Additional App Bundle</div>
+                <div className="text-sm text-muted-foreground">Add 20 more applications to your package</div>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-bold text-primary">$24,000/year</div>
+                <div className="text-sm text-muted-foreground">per bundle</div>
+              </div>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <CheckCircle className="h-3 w-3 text-success" />
+              <span>20 additional applications</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* OR Divider */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">OR</span>
+        </div>
+      </div>
+
+      {/* License Package Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Select Savi Identity Security Package</CardTitle>
+          <CardDescription>
+            Choose the Savi Identity Security package that best fits your needs
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
             {licensePackages.map((pkg) => (
               <div 
                 key={pkg.id}
-                className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                className={`relative border rounded-lg p-4 cursor-pointer transition-all flex flex-col h-full ${
                   formData.licensePackage === pkg.id
                     ? 'border-primary bg-primary/5'
                     : 'hover:border-primary/50'
@@ -124,17 +184,19 @@ export function IGAQuoteForm() {
                     Recommended
                   </Badge>
                 )}
-                <div className="space-y-3">
-                  <div>
-                    <div className="font-medium">{pkg.name}</div>
-                    <div className="text-sm text-muted-foreground">{pkg.description}</div>
+                <div className="flex flex-col h-full">
+                  <div className="mb-3">
+                    <div className="font-medium text-base mb-2 h-12 flex items-center">{pkg.name}</div>
+                    <div className="text-sm text-muted-foreground mb-3 h-10 flex items-center">{pkg.description}</div>
+                    <div className="text-lg font-bold text-primary">{pkg.price}</div>
                   </div>
-                  <div className="text-lg font-bold text-primary">{pkg.price}</div>
-                  <div className="space-y-1">
+                  <div className="flex-1 space-y-2">
                     {pkg.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-3 w-3 text-success" />
-                        <span>{feature}</span>
+                      <div key={index} className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="h-3 w-3 text-success mt-0.5 flex-shrink-0" />
+                        <span className="leading-relaxed" dangerouslySetInnerHTML={{
+                          __html: feature.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        }} />
                       </div>
                     ))}
                   </div>

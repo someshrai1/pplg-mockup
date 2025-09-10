@@ -14,13 +14,13 @@ export function UserLimitUtilization() {
           <Crown className="h-4 w-4 text-primary" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">155 / 250</div>
-          <Progress value={62} className="mt-2" />
+          <div className="text-2xl font-bold">8,450 / 10,000</div>
+          <Progress value={84.5} className="mt-2" />
           <p className="text-xs text-muted-foreground mt-2">
-            62% of Pro license used
+            84.5% of Pro limit used
           </p>
-          <Badge variant="outline" className="mt-2 bg-success/10 text-success border-success/20">
-            Within Limits
+          <Badge variant="outline" className="mt-2 bg-warning/10 text-warning border-warning/20">
+            Near Limit
           </Badge>
         </CardContent>
       </Card>
@@ -31,10 +31,10 @@ export function UserLimitUtilization() {
           <Users className="h-4 w-4 text-success" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">687 / 750</div>
-          <Progress value={91.6} className="mt-2" />
+          <div className="text-2xl font-bold">33,700 / 40,000</div>
+          <Progress value={84.25} className="mt-2" />
           <p className="text-xs text-muted-foreground mt-2">
-            91.6% of Lite license used
+            84.25% of Lite limit used
           </p>
           <Badge variant="outline" className="mt-2 bg-warning/10 text-warning border-warning/20">
             Near Limit
@@ -48,13 +48,13 @@ export function UserLimitUtilization() {
           <TrendingUp className="h-4 w-4 text-info" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+15</div>
+          <div className="text-2xl font-bold">+1,250</div>
           <p className="text-xs text-muted-foreground">
             Net user growth
           </p>
           <div className="text-sm mt-2 space-x-2">
-            <span className="text-success">+23 added</span>
-            <span className="text-muted-foreground">-8 removed</span>
+            <span className="text-success">+1,420 added</span>
+            <span className="text-muted-foreground">-170 removed</span>
           </div>
         </CardContent>
       </Card>
@@ -65,12 +65,12 @@ export function UserLimitUtilization() {
           <CheckCircle className="h-4 w-4 text-success" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">127</div>
+          <div className="text-2xl font-bold">2,340</div>
           <p className="text-xs text-muted-foreground">
             Pending approvals
           </p>
           <div className="text-sm mt-2">
-            <Badge variant="outline" className="bg-info/10 text-info">12 Critical</Badge>
+            <Badge variant="outline" className="bg-info/10 text-info">156 Critical</Badge>
           </div>
         </CardContent>
       </Card>

@@ -10,14 +10,14 @@ export function ConsumptionOverview() {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">License Usage</CardTitle>
+          <CardTitle className="text-sm font-medium">Users</CardTitle>
           <CheckCircle className="h-4 w-4 text-success" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">842 / 1000</div>
-          <Progress value={84.2} className="mt-2" />
+          <div className="text-2xl font-bold">42,150 / 50,000</div>
+          <Progress value={84.3} className="mt-2" />
           <p className="text-xs text-muted-foreground mt-2">
-            84.2% utilization
+            84.3% utilization
           </p>
           <Badge variant="outline" className="mt-2 bg-success/10 text-success border-success/20">
             Within Limits
@@ -36,7 +36,7 @@ export function ConsumptionOverview() {
             vs previous month
           </p>
           <div className="text-sm mt-2">
-            <span className="text-success">↗ 842</span> active users
+            <span className="text-success">↗ 42,150</span> active users
           </div>
         </CardContent>
       </Card>
@@ -65,7 +65,7 @@ export function ConsumptionOverview() {
           <AlertTriangle className="h-4 w-4 text-warning" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">950</div>
+          <div className="text-2xl font-bold">47,500</div>
           <p className="text-xs text-muted-foreground">
             Projected peak usage
           </p>

@@ -104,39 +104,6 @@ export function TrialEndExperience2({ trialData }: TrialEndExperience2Props) {
 
   return (
     <div className="space-y-6">
-      {/* Trial Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-success" />
-            Your Trial Results
-          </CardTitle>
-          <CardDescription>
-            Share these insights with our sales team to get personalized recommendations
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-primary">{trialData.eventsAnalyzed.toLocaleString()}</div>
-              <div className="text-sm text-muted-foreground">Events Analyzed</div>
-            </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-primary">{trialData.identitiesScanned}</div>
-              <div className="text-sm text-muted-foreground">Identities Scanned</div>
-            </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-primary">{trialData.aiInsights}</div>
-              <div className="text-sm text-muted-foreground">AI Insights</div>
-            </div>
-            <div className="text-center p-3 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-success">{trialData.postureScore}/100</div>
-              <div className="text-sm text-muted-foreground">Posture Score</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Schedule Meeting */}
       <Card>
         <CardHeader>

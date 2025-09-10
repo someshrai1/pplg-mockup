@@ -14,10 +14,10 @@ export function AppLimitUtilization() {
           <Monitor className="h-4 w-4 text-primary" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">47 / 50</div>
-          <Progress value={94} className="mt-2" />
+          <div className="text-2xl font-bold">18 / 20</div>
+          <Progress value={90} className="mt-2" />
           <p className="text-xs text-muted-foreground mt-2">
-            94% of app limit used
+            90% of app limit used
           </p>
           <div className="flex items-center justify-between mt-2">
             <Badge variant="outline" className="bg-warning/10 text-warning border-warning/20">
@@ -25,13 +25,13 @@ export function AppLimitUtilization() {
             </Badge>
             <Dialog>
               <DialogTrigger asChild>
-                <Badge className="bg-success/10 text-success border-success/20 cursor-pointer hover:bg-success/20 transition-colors">
-                  Extend Now!
-                </Badge>
+                <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer">
+                  Buy Now!
+                </button>
               </DialogTrigger>
               <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle>Request IGA License Quote</DialogTitle>
+                  <DialogTitle>Request a Quote</DialogTitle>
                 </DialogHeader>
                 <IGAQuoteForm />
               </DialogContent>
@@ -46,12 +46,12 @@ export function AppLimitUtilization() {
           <TrendingUp className="h-4 w-4 text-success" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+8.3%</div>
+          <div className="text-2xl font-bold">+6.7%</div>
           <p className="text-xs text-muted-foreground">
             vs previous month
           </p>
           <div className="text-sm mt-2">
-            <span className="text-success">↗ 47</span> connected apps
+            <span className="text-success">↗ 18</span> connected apps
           </div>
         </CardContent>
       </Card>
@@ -62,14 +62,14 @@ export function AppLimitUtilization() {
           <TrendingUp className="h-4 w-4 text-info" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">82.4%</div>
+          <div className="text-2xl font-bold">81.7%</div>
           <p className="text-xs text-muted-foreground">
             Average this year
           </p>
           <div className="flex gap-1 mt-2">
-            <Badge variant="secondary" className="text-xs">Q1: 76%</Badge>
-            <Badge variant="secondary" className="text-xs">Q2: 84%</Badge>
-            <Badge variant="secondary" className="text-xs">Q3: 87%</Badge>
+            <Badge variant="secondary" className="text-xs">Q1: 70%</Badge>
+            <Badge variant="secondary" className="text-xs">Q2: 80%</Badge>
+            <Badge variant="secondary" className="text-xs">Q3: 90%</Badge>
           </div>
         </CardContent>
       </Card>
@@ -85,8 +85,8 @@ export function AppLimitUtilization() {
             Apps fully configured
           </p>
           <div className="text-sm mt-2 space-x-2">
-            <Badge variant="secondary">42 Complete</Badge>
-            <Badge variant="outline" className="bg-warning/10 text-warning">5 Pending</Badge>
+            <Badge variant="secondary">16 Complete</Badge>
+            <Badge variant="outline" className="bg-warning/10 text-warning">2 Pending</Badge>
           </div>
         </CardContent>
       </Card>

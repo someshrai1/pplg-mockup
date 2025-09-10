@@ -41,27 +41,27 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
 
   const licensePackages = [
     {
-      id: "starter",
-      name: "ISPM Starter",
+      id: "essential",
+      name: "ISPM Essential",
       description: "Essential identity security posture monitoring",
       features: ["Up to 500 identities", "Basic AI insights", "Standard reporting"],
-      price: "$8,500/month",
+      price: "$8,500 /month",
       recommended: false
     },
     {
-      id: "professional",
-      name: "ISPM Professional",
+      id: "pro",
+      name: "ISPM Pro",
       description: "Advanced posture management and analytics",
-      features: ["Up to 2,000 identities", "Advanced AI analytics", "Custom dashboards", "API access"],
-      price: "$18,000/month",
+      features: ["Everything in Essential plus:", "Up to 2,000 identities", "Advanced AI analytics", "Custom dashboards", "API access"],
+      price: "$18,000 /month",
       recommended: true
     },
     {
-      id: "enterprise",
-      name: "ISPM Enterprise",
+      id: "premium",
+      name: "ISPM Premium",
       description: "Complete enterprise identity security platform",
-      features: ["Unlimited identities", "Full AI suite", "White-label options", "24/7 support"],
-      price: "Custom pricing",
+      features: ["Everything in Pro plus:", "Unlimited identities", "Full AI suite", "24/7 support"],
+      price: "$25,000 /month",
       recommended: false
     }
   ];
@@ -111,56 +111,15 @@ export function TrialEndExperience3({ trialData }: TrialEndExperience3Props) {
 
   // Calculate recommended package based on trial usage
   const getRecommendedPackage = () => {
-    if (trialData.identitiesScanned > 1500) return "enterprise";
-    if (trialData.identitiesScanned > 500) return "professional";
-    return "starter";
+    if (trialData.identitiesScanned > 1500) return "premium";
+    if (trialData.identitiesScanned > 500) return "pro";
+    return "essential";
   };
 
   const recommendedPackage = getRecommendedPackage();
 
   return (
     <div className="space-y-6">
-      {/* Usage-Based Recommendations */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Calculator className="h-5 w-5" />
-            Trial Usage Analysis
-          </CardTitle>
-          <CardDescription>
-            Recommended package based on your trial activity
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-sm">Identities Analyzed</span>
-                <Badge className="bg-primary/10 text-primary">{trialData.identitiesScanned}</Badge>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm">Security Events</span>
-                <Badge className="bg-primary/10 text-primary">{trialData.eventsAnalyzed}</Badge>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm">AI Insights Generated</span>
-                <Badge className="bg-success/10 text-success">{trialData.aiInsights}</Badge>
-              </div>
-            </div>
-            
-            <div className="bg-muted/50 p-4 rounded-lg">
-              <div className="font-medium text-sm mb-2">Recommended Package:</div>
-              <div className="text-lg font-bold text-primary">
-                {licensePackages.find(pkg => pkg.id === recommendedPackage)?.name}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Optimal for your current usage patterns
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* License Package Selection */}
       <Card>
         <CardHeader>

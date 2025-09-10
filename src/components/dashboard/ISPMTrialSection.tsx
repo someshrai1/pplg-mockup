@@ -18,28 +18,37 @@ export function ISPMTrialSection() {
       <div className="bg-[#22264c] rounded-xl p-6 shadow-lg">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="h-5 w-5 text-[#fadf79]" />
-          <h2 className="text-xl text-[#b6bef6]">ISPM Status</h2>
+          <h2 className="text-xl text-[#b6bef6]">ISPM Trial</h2>
         </div>
         <p className="text-[#8d95bd] mb-6">
           Your Identity Security Posture Management trial overview
         </p>
         
-        <div className="grid gap-4 md:grid-cols-4 mb-6">
+        <div className="grid gap-4 md:grid-cols-5 mb-6">
           <div className="bg-[#232750] rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-white">{trialData.eventsAnalyzed.toLocaleString()}</div>
-            <div className="text-sm text-[#8d95bd]">Events Analyzed</div>
+            <div className="text-2xl font-bold text-white">2,639</div>
+            <div className="text-sm text-[#8d95bd] mb-1">Resources</div>
+            <div className="text-sm text-orange-400">159 Potentially Risky</div>
           </div>
           <div className="bg-[#232750] rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-white">{trialData.identitiesScanned}</div>
-            <div className="text-sm text-[#8d95bd]">Identities Scanned</div>
+            <div className="text-2xl font-bold text-white">48,035</div>
+            <div className="text-sm text-[#8d95bd] mb-1">Identities</div>
+            <div className="text-sm text-orange-400">1,588 Potentially Risky</div>
           </div>
           <div className="bg-[#232750] rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-white">{trialData.aiInsights}</div>
-            <div className="text-sm text-[#8d95bd]">AI Insights</div>
+            <div className="text-2xl font-bold text-white">989</div>
+            <div className="text-sm text-[#8d95bd] mb-1">Roles</div>
+            <div className="text-sm text-orange-400">322 Potentially Risky</div>
           </div>
           <div className="bg-[#232750] rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-[#67f1b5]">{trialData.postureScore}/100</div>
-            <div className="text-sm text-[#8d95bd]">Posture Score</div>
+            <div className="text-2xl font-bold text-white">12,281</div>
+            <div className="text-sm text-[#8d95bd] mb-1">Accounts</div>
+            <div className="text-sm text-orange-400">322 Potentially Risky</div>
+          </div>
+          <div className="bg-[#232750] rounded-lg p-4 text-center">
+            <div className="text-2xl font-bold text-white">4,310</div>
+            <div className="text-sm text-[#8d95bd] mb-1">Entitlements</div>
+            <div className="text-sm text-orange-400">101 Potentially Risky</div>
           </div>
         </div>
         
@@ -59,70 +68,70 @@ export function ISPMTrialSection() {
 
       {/* Trial End Options */}
       <div className="bg-[#22264c] rounded-xl p-6 shadow-lg">
-        <h3 className="text-xl text-[#b6bef6] mb-2">Trial End Options</h3>
+        <h3 className="text-xl text-[#b6bef6] mb-2">Continue to protect your organisation</h3>
         <p className="text-[#8d95bd] mb-6">
           Choose how you want to proceed with your ISPM trial
         </p>
         
         <div className="grid gap-4 md:grid-cols-3">
-          {/* Connect with Sales Option */}
+          {/* Buy Now Option - Most Attractive */}
           <Dialog>
             <DialogTrigger asChild>
-              <button className="bg-[#191b33] rounded-xl p-5 text-left hover:bg-[#1f2142] transition-colors border border-[#2a2f5a]">
+              <button className="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-xl p-5 text-left transition-all transform hover:scale-105 shadow-lg hover:shadow-xl border-2 border-green-400">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="h-5 w-5 text-[#67f1b5]" />
-                  <span className="font-medium text-white">Connect with Sales</span>
+                  <FileText className="h-5 w-5 text-white" />
+                  <span className="font-medium text-white">Buy Now!</span>
                 </div>
-                <p className="text-sm text-[#8d95bd]">
-                  Need help in choosing the right plan? Our sales team is here to assist you
-                </p>
-              </button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-[#181b30] border-[#2a2f5a]">
-              <DialogHeader>
-                <DialogTitle className="text-white">Connect with Sales Team</DialogTitle>
-              </DialogHeader>
-              <TrialEndExperience2 trialData={trialData} />
-            </DialogContent>
-          </Dialog>
-
-          {/* Request Quote Option */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <button className="bg-[#191b33] rounded-xl p-5 text-left hover:bg-[#1f2142] transition-colors border border-[#2a2f5a]">
-                <div className="flex items-center gap-2 mb-2">
-                  <FileText className="h-5 w-5 text-[#74e1ff]" />
-                  <span className="font-medium text-white">Request a Quote</span>
-                </div>
-                <p className="text-sm text-[#8d95bd]">
+                <p className="text-sm text-green-100">
                   Already know what you need? Get a quote
                 </p>
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-[#181b30] border-[#2a2f5a]">
               <DialogHeader>
-                <DialogTitle className="text-white">Request Custom Quote</DialogTitle>
+                <DialogTitle className="text-white">Buy Now!</DialogTitle>
               </DialogHeader>
               <TrialEndExperience3 trialData={trialData} />
             </DialogContent>
           </Dialog>
 
-          {/* Terminate Trial Option - Last */}
+          {/* Connect with Sales Option - Medium Attractive */}
           <Dialog>
             <DialogTrigger asChild>
-              <button className="bg-[#191b33] rounded-xl p-5 text-left hover:bg-[#1f2142] transition-colors border border-[#2a2f5a]">
+              <button className="bg-blue-600 hover:bg-blue-700 rounded-xl p-5 text-left transition-colors border border-blue-500">
                 <div className="flex items-center gap-2 mb-2">
-                  <Download className="h-5 w-5 text-[#ff6b6b]" />
+                  <TrendingUp className="h-5 w-5 text-white" />
+                  <span className="font-medium text-white">Connect with Sales</span>
+                </div>
+                <p className="text-sm text-blue-100">
+                  Need help in choosing the right plan? Our sales team is here to assist you
+                </p>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-[#181b30] border-[#2a2f5a]">
+              <DialogHeader>
+                <DialogTitle className="text-white">Connect with Sales</DialogTitle>
+              </DialogHeader>
+              <TrialEndExperience2 trialData={trialData} />
+            </DialogContent>
+          </Dialog>
+
+          {/* Terminate Trial Option - Least Attractive */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="bg-gray-600 hover:bg-gray-700 rounded-xl p-5 text-left transition-colors border border-gray-500">
+                <div className="flex items-center gap-2 mb-2">
+                  <Download className="h-5 w-5 text-gray-300" />
                   <span className="font-medium text-white">Terminate Trial</span>
                 </div>
-                <p className="text-sm text-[#8d95bd]">
+                <p className="text-sm text-gray-300">
                   Not extending yet? Let's backup your data before you go
                 </p>
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-[#181b30] border-[#2a2f5a]">
               <DialogHeader>
-                <DialogTitle className="text-white">Terminate Trial & Data Management</DialogTitle>
+                <DialogTitle className="text-white">Terminate Trial</DialogTitle>
               </DialogHeader>
               <TrialEndExperience1 trialData={trialData} />
             </DialogContent>

@@ -30,7 +30,7 @@ export function DashboardLayout() {
           </div>
           <div className="ml-auto flex items-center space-x-4">
             <Badge variant="outline" className="bg-success/10 text-success border-success/20">
-              Pro License Active
+              Savi Security Essentials
             </Badge>
             <Button variant="ghost" size="icon">
               <Bell className="h-4 w-4" />
@@ -142,7 +142,7 @@ export function DashboardLayout() {
                 {activeTab === "usage" && usageSubTab === "apps" && "Application Management"}
               </h2>
               <p className="text-muted-foreground">
-                {activeTab === "usage" && usageSubTab === "overview" && "Monitor license consumption across users and applications"}
+                {activeTab === "usage" && usageSubTab === "overview" && "Monitor consumption across users and applications"}
                 {activeTab === "usage" && usageSubTab === "users" && "Manage user identities and access controls"}
                 {activeTab === "usage" && usageSubTab === "apps" && "Monitor application connections and provisioning"}
               </p>
@@ -155,11 +155,11 @@ export function DashboardLayout() {
                 {usageSubTab === "overview" && (
                   <div className="space-y-8">
                     <div>
-                      <h3 className="text-lg font-semibold mb-4">User License Consumption</h3>
+                      <h3 className="text-lg font-semibold mb-4">User Limit Consumption</h3>
                       <ConsumptionOverview />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-4">App License Consumption</h3>
+                      <h3 className="text-lg font-semibold mb-4">App Limit Consumption</h3>
                       <AppLimitUtilization />
                     </div>
                   </div>

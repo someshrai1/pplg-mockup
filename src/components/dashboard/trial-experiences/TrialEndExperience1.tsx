@@ -112,46 +112,6 @@ export function TrialEndExperience1({ trialData }: TrialEndExperience1Props) {
 
   return (
     <div className="space-y-6">
-      {/* Trial Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-success" />
-            Trial Summary
-          </CardTitle>
-          <CardDescription>
-            Your ISPM trial activity and compliance posture overview
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">{trialData.eventsAnalyzed}</div>
-              <div className="text-sm text-muted-foreground">Events Analyzed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">{trialData.identitiesScanned}</div>
-              <div className="text-sm text-muted-foreground">Identities Scanned</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">{trialData.aiInsights}</div>
-              <div className="text-sm text-muted-foreground">AI Insights Generated</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-success">{trialData.postureScore}/100</div>
-              <div className="text-sm text-muted-foreground">Final Posture Score</div>
-            </div>
-          </div>
-          
-          <Alert className="mt-4">
-            <CheckCircle className="h-4 w-4" />
-            <AlertDescription>
-              Your identity security posture has improved by 23% during the trial period.
-            </AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
-
       {/* Backup Data Section */}
       <Card>
         <CardHeader>
